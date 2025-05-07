@@ -1,0 +1,9 @@
+POST http://localhost:3000/athletes HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Carlos Alcaraz",
+  "country": "Spain",
+  "birthYear": 1943,
+  "sportId": "680b9c504f59aa37fc651922"
+}
