@@ -5,8 +5,10 @@ const athleteRouter = require("./routers/athlete.router");
 const errorHandler = require("./errorsHandler/errorHandler");
 const CONSTANTS = require("./constants");
 const analiticsRouter = require("./routers/analitics.router");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 

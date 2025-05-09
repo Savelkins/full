@@ -1,9 +1,9 @@
-const fs = require('fs/promises');
-const path = require('path');
-const createError = require('http-errors');
-const Sport = require('../models/Sport');
-const CONSTANTS = require('../constants');
-const Athlete = require('../models/Athlete');
+const fs = require("fs/promises");
+const path = require("path");
+const createError = require("http-errors");
+const Sport = require("../models/Sport");
+const CONSTANTS = require("../constants");
+const Athlete = require("../models/Athlete");
 
 module.exports.createSport = async (req, res, next) => {
   try {
@@ -31,9 +31,9 @@ module.exports.getAllSports = async (req, res, next) => {
 module.exports.getSportById = async (req, res, next) => {
   try {
     const { idSport } = req.params;
-    const sport = await Sport.findById(idSport);
+    const sport = await Sport.findById(idSport).populate("athletes");
     if (!sport) {
-      return next(createError(404, 'sport not found'));
+      return next(createError(404, "sport not found"));
     }
     res.status(200).send({ data: sport });
   } catch (error) {
@@ -47,11 +47,11 @@ module.exports.updateSportById = async (req, res, next) => {
     const { name, isOlimpic } = req.body;
     const sport = await Sport.findById(idSport);
     if (!sport) {
-      return next(createError(404, 'sport not found'));
+      return next(createError(404, "sport not found"));
     }
     if (req.file) {
       if (sport.image) {
-        const imagePath = path.join(__dirname, '..', sport.image);
+        const imagePath = path.join(__dirname, "..", sport.image);
         await fs.unlink(imagePath);
       }
       sport.image = `/${CONSTANTS.UPLOAD_FOLDER}${req.file.filename}`;
@@ -69,15 +69,15 @@ module.exports.updateSportById = async (req, res, next) => {
 module.exports.deleteSportById = async (req, res, next) => {
   try {
     const { idSport } = req.params;
-    const deletedSport = await Sport.findOneAndDelete({idSport})
+    const deletedSport = await Sport.findOneAndDelete({ idSport });
     if (!deletedSport) {
-      return next(createError(404, 'sport not found'));
+      return next(createError(404, "sport not found"));
     }
     if (deletedSport.image) {
-      const imagePath = path.join(__dirname, '..', deletedSport.image);
+      const imagePath = path.join(__dirname, "..", deletedSport.image);
       await fs.unlink(imagePath);
     }
-    
+
     res.status(200).send({ data: deletedSport });
   } catch (error) {
     next(createError(400, error.message));
