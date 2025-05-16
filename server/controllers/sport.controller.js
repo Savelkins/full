@@ -57,7 +57,7 @@ module.exports.updateSportById = async (req, res, next) => {
       sport.image = `/${CONSTANTS.UPLOAD_FOLDER}${req.file.filename}`;
     }
     sport.name = name || sport.name;
-    sport.isOlimpic = isOlimpic || sport.isOlimpic;
+    if (isOlimpic !== undefined) sport.isOlimpic = isOlimpic;
     const updatedSport = await sport.save();
     res.status(200).send({ data: updatedSport });
   } catch (error) {
@@ -69,7 +69,7 @@ module.exports.updateSportById = async (req, res, next) => {
 module.exports.deleteSportById = async (req, res, next) => {
   try {
     const { idSport } = req.params;
-    const deletedSport = await Sport.findOneAndDelete({ idSport });
+    const deletedSport = await Sport.findByIdAndDelete(idSport);
     if (!deletedSport) {
       return next(createError(404, "sport not found"));
     }
