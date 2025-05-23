@@ -1,9 +1,9 @@
-PATCH http://localhost:3000/athletes/6814c6a64b65793b5fb02405 HTTP/1.1
+PATCH http://localhost:3000/athletes/68309888d55ad322eba2f1fb HTTP/1.1
 Content-Type: application/json
 
 {
     "name": "Carlos Alcaraz",
     "country": "Spain",
     "birthYear": 2003,
-    "sportId": "680b9c504f59aa37fc651922"
+    "sportId": "6818c688d8f61fd07de16372"
 }

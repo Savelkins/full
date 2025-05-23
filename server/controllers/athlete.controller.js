@@ -83,8 +83,13 @@ module.exports.updateAthleteById = async (req, res, next) => {
     athlete.name = name || athlete.name;
     athlete.country = country || athlete.country;
     athlete.birthYear = birthYear || athlete.birthYear;
-    athlete.sportId = sportId || athlete.sportId;
-    const updatedAthlete = await athlete.save();
+
+    await athlete.save();
+    const updatedAthlete = await Athlete.findById(athlete._id).populate({
+      path: "sportId",
+      select: "name",
+    });
+  
     res.status(200).send({ data: updatedAthlete });
   } catch (error) {
     next(error);
@@ -102,8 +107,6 @@ module.exports.deleteAthleteById = async (req, res, next) => {
       const imagePath = path.join(__dirname, "..", athlete.avatar);
       await fs.unlink(imagePath);
     }
-
-    
 
     res.status(200).send({ data: athlete });
   } catch (error) {

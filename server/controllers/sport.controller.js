@@ -59,7 +59,7 @@ module.exports.updateSportById = async (req, res, next) => {
     sport.name = name || sport.name;
     if (isOlimpic !== undefined) sport.isOlimpic = isOlimpic;
     const updatedSport = await sport.save();
-    res.status(200).send({ data: updatedSport });
+    res.status(200).send({ data: updatedSport }).populate("athletes");
   } catch (error) {
     console.log(error);
     next(createError(400, error.message));

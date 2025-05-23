@@ -1,4 +1,4 @@
-import Sport from "../components/Sport";
+import Sport from "../components/Sport/Sport";
 
 const SportPage = () => {
   return <Sport />;

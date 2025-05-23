@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSportsAsync } from "../store/sportsSlice";
+import { fetchAllSportsAsync } from "../../store/sportsSlice";
 import SportItem from "./SportItem";
 
 const SportsList = () => {

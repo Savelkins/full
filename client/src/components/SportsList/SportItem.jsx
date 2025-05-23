@@ -2,7 +2,7 @@ import { mdiDeleteOutline } from "@mdi/js";
 import { Icon } from "@mdi/react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteSportByIdAsync } from "../store/sportsSlice";
+import { deleteSportByIdAsync } from "../../store/sportsSlice";
 
 const SportItem = ({ sport }) => {
   const dispatch = useDispatch();
@@ -18,13 +18,12 @@ const SportItem = ({ sport }) => {
     dispatch(deleteSportByIdAsync(sport._id));
   };
   return (
-    <li onClick={navigateToSport} key={sport._id}>
+    <li onClick={navigateToSport}>
       {sport.name}
       <Icon
         onClick={handleDelete}
         path={mdiDeleteOutline}
         size={1}
-        className="icon"
       />
     </li>
   );

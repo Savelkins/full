@@ -1,4 +1,4 @@
-import SportsList from "../components/SportsList";
+import SportsList from "../components/SportsList/SportsList";
 
 const HomePage = () => {
   

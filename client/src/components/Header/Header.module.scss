@@ -1,4 +1,16 @@
 header {
+  height: 60px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  background-color: #4caf50;
+  color: white;
+  margin: 0;
+  padding: 0 15px;
+  div {
+    display: flex;
+    * {
+      margin: 0 10px;
+    }
+  }
 }

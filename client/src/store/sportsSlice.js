@@ -6,6 +6,7 @@ import {
   fetchSportById,
   updateSportById,
 } from "../api";
+import { pendingCase, rejectedCase } from "./functions";
 
 export const fetchAllSportsAsync = createAsyncThunk(
   "sports/fetchAllSports",
@@ -67,16 +68,6 @@ export const updateSportByIdAsync = createAsyncThunk(
   }
 );
 
-const pendingCase = (state) => {
-  state.isLoading = true;
-  state.error = null;
-};
-
-const rejectedCase = (state, action) => {
-  state.isLoading = false;
-  state.error = action.payload;
-};
-
 const sportsSlice = createSlice({
   name: "sports",
   initialState: {
@@ -125,8 +116,9 @@ const sportsSlice = createSlice({
     //updateSportByIdAsync
     builder.addCase(updateSportByIdAsync.pending, pendingCase);
     builder.addCase(updateSportByIdAsync.fulfilled, (state, action) => {
-      state.isLoading = false;
       state.selectedSport = action.payload;
+      state.isLoading = false;
+      state.error = null;
     });
     builder.addCase(updateSportByIdAsync.rejected, rejectedCase);
   },

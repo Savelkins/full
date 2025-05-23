@@ -5,7 +5,10 @@ const Hader = () => {
   return (
     <header>
       <Link to="/">Logo</Link>
-      <Link to="/create-sport">Create sport</Link>
+      <div>
+        <Link to="/create-sport">Create sport</Link>
+        <Link to="/create-athlete">Create athlete</Link>
+      </div>
     </header>
   );
 };
