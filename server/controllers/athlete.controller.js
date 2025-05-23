@@ -3,6 +3,7 @@ const Sport = require("../models/Sport");
 const Athlete = require("../models/Athlete");
 const CONSTANTS = require("../constants");
 const fs = require("fs/promises");
+const path = require("path");
 module.exports.createAthlete = async (req, res, next) => {
   try {
     const { name, country, birthYear, sportId } = req.body;
@@ -83,13 +84,12 @@ module.exports.updateAthleteById = async (req, res, next) => {
     athlete.name = name || athlete.name;
     athlete.country = country || athlete.country;
     athlete.birthYear = birthYear || athlete.birthYear;
-
+    athlete.sportId = sportId || athlete.sportId;
     await athlete.save();
     const updatedAthlete = await Athlete.findById(athlete._id).populate({
       path: "sportId",
       select: "name",
     });
-  
     res.status(200).send({ data: updatedAthlete });
   } catch (error) {
     next(error);

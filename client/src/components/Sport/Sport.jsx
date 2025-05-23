@@ -7,7 +7,6 @@ import AthletesList from "../AthletesList/AthletesList";
 import FormUpdateSport from "../forms/FormUpdateSport";
 import styles from "./sport.module.scss";
 
-
 const Sport = () => {
   const dispatch = useDispatch();
   const { sportId } = useParams();
@@ -18,12 +17,14 @@ const Sport = () => {
   const [isShowAthletes, setIsShowAthletes] = useState(false);
   const handleShowAthletes = () => setIsShowAthletes(!isShowAthletes);
 
+  const { athletes } = useSelector((state) => state.athletes);
+
   const { selectedSport, isLoading, error } = useSelector(
     (state) => state.sports
   );
   useEffect(() => {
     dispatch(fetchSportByIdAsync(sportId));
-  }, [dispatch, sportId]);
+  }, [dispatch, sportId, athletes]);
 
   if (isLoading) {
     return <div>Loading...</div>;

@@ -4,6 +4,7 @@ const {
   findAllAthletes,
   findAthleteById,
   deleteAthleteById,
+  updateAthleteById,
 } = require("../controllers/athlete.controller");
 const upload = require("../middlewares/uploadImg");
 const {
@@ -32,7 +33,7 @@ athleteRouter.patch(
   upload.single("avatar"),
   buildAthleteFilter,
   validateAthlete(athleteSchemaUpdate),
-  findAthleteById
+  updateAthleteById
 );
 athleteRouter.delete("/:athleteId", deleteAthleteById);
 

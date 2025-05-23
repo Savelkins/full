@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  deleteAthleteById,
   fetchAllAthletes,
   fetchAthleteById,
   fetchCreateAthlete,
@@ -55,6 +56,18 @@ export const updateAthleteByIdAsync = createAsyncThunk(
   }
 );
 
+export const deleteAthleteByIdAsync = createAsyncThunk(
+  "athletes/deleteAthleteByIdAsync",
+  async (athleteId, thunkAPI) => {
+    try {
+      const response = await deleteAthleteById(athleteId);
+      return response.data.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error?.message);
+    }
+  }
+);
+
 const fulfilledCase = (state, action) => {
   state.selectedAthlete = action.payload;
   state.isLoading = false;
@@ -90,6 +103,16 @@ const athletesSlice = createSlice({
     builder.addCase(updateAthleteByIdAsync.pending, pendingCase);
     builder.addCase(updateAthleteByIdAsync.fulfilled, fulfilledCase);
     builder.addCase(updateAthleteByIdAsync.rejected, rejectedCase);
+    //deleteAthleteByIdAsync
+    builder.addCase(deleteAthleteByIdAsync.pending, pendingCase);
+    builder.addCase(deleteAthleteByIdAsync.fulfilled, (state, action) => {
+      state.athletes = state.athletes.filter(
+        (athlete) => athlete._id !== action.payload._id
+      );
+      state.isLoading = false;
+      state.error = null;
+    });
+    builder.addCase(deleteAthleteByIdAsync.rejected, rejectedCase);
   },
 });
 

@@ -44,3 +44,5 @@ export const updateAthleteById = ({ id, formData }) =>
       "Content-Type": "multipart/form-data",
     },
   });
+
+export const deleteAthleteById = (id) => apiClient.delete(`/athletes/${id}`);
